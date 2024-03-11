@@ -6,23 +6,6 @@ export const repo = "react";
 export type StateProps = "open" | "all" | "closed" | undefined;
 export type SortProps = "comments" | "updated" | "created" | undefined;
 
-// export const getIssueDetail = async (issueId: number) => {
-//   try {
-//     const response = await octokit.request(
-//       "GET /repos/{owner}/{repo}/issues/{issueId}",
-//       {
-//         owner: `${owner}`,
-//         repo: `${repo}`,
-//         issueId: `${issueId}`,
-//       }
-//     );
-
-//     return response.data;
-//   } catch (error) {
-//     console.error(error);
-//   }
-// };
-
 export const getIssuesWithAxios = async (
   state: StateProps = "all",
   sort: SortProps = "created",
@@ -38,6 +21,18 @@ export const getIssuesWithAxios = async (
     });
     const response = await axios.get(
       `https://api.github.com/repos/facebook/react/issues${params}`
+    );
+
+    return response.data;
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+export const getOneIssue = async (issueId: number) => {
+  try {
+    const response = await axios.get(
+      `https://api.github.com/repos/facebook/react/issues/${issueId}`
     );
 
     return response.data;
