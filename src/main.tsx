@@ -14,6 +14,7 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
     <GlobalStyles />
     <QueryClientProvider client={queryClient}>
       <PrivateRoter>
+        <div id="modal" />
         <RouterProvider router={router} />
       </PrivateRoter>
     </QueryClientProvider>
