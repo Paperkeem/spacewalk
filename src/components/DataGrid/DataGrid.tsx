@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 interface Props {
@@ -19,14 +20,20 @@ export function DataGrid({ list, currentPage }: Props) {
       </TextContainer>
 
       {list?.map((item: any, index: number) => (
-        <TextContainer key={item.id}>
-          <GridText>{index + 1 + (currentPage - 1) * 10}</GridText>
-          <GridText $textWidth="421px">{item.title}</GridText>
-          <GridText $textWidth="120px">{item.user.login}</GridText>
-          <GridText $textWidth="90px">{item.created_at.slice(0, 10)}</GridText>
-          <GridText $textWidth="90px">{item.updated_at.slice(0, 10)}</GridText>
-          <GridText $textAlign="right">{item.comments}</GridText>
-        </TextContainer>
+        <Link key={item.id} to={`/issue/${item.number}`}>
+          <TextContainer $isHover>
+            <GridText>{index + 1 + (currentPage - 1) * 10}</GridText>
+            <GridText $textWidth="421px">{item.title}</GridText>
+            <GridText $textWidth="120px">{item.user.login}</GridText>
+            <GridText $textWidth="90px">
+              {item.created_at.slice(0, 10)}
+            </GridText>
+            <GridText $textWidth="90px">
+              {item.updated_at.slice(0, 10)}
+            </GridText>
+            <GridText $textAlign="right">{item.comments}</GridText>
+          </TextContainer>
+        </Link>
       ))}
     </Container>
   );
@@ -41,6 +48,7 @@ export const Container = styled.main`
 export const TextContainer = styled.section<{
   $backgroundColor?: string;
   $borderRadius?: string;
+  $isHover?: boolean;
 }>`
   width: 1024px;
   display: flex;
@@ -51,6 +59,8 @@ export const TextContainer = styled.section<{
 
   background-color: ${(props) => props.$backgroundColor ?? ""};
   border-radius: ${(props) => props.$borderRadius ?? ""};
+
+  cursor: ${(props) => (props.$isHover ? "pointer" : "")};
 `;
 
 export const GridText = styled.div<{
