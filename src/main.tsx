@@ -5,6 +5,7 @@ import "./index.css";
 import GlobalStyles from "./styles/GlobalStyles.ts";
 import { RouterProvider } from "react-router-dom";
 import { router } from "./router/route.tsx";
+import PrivateRoter from "./provider/PrivateRoter.tsx";
 
 const queryClient = new QueryClient();
 
@@ -12,7 +13,9 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <GlobalStyles />
     <QueryClientProvider client={queryClient}>
-      <RouterProvider router={router} />
+      <PrivateRoter>
+        <RouterProvider router={router} />
+      </PrivateRoter>
     </QueryClientProvider>
   </React.StrictMode>
 );
